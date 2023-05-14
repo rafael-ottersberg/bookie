@@ -5,7 +5,7 @@ services:
     build: ./bookie
     command: gunicorn bookie.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./db/:/usr/src/app/db
+      - ./bookie/db/:/usr/src/app/db
       - static_volume:/staticfiles
     expose:
       - 8000
