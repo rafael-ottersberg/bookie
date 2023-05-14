@@ -1,6 +1,9 @@
 FROM python:3.11.3-slim-bullseye
 
-WORKDIR /usr/src/app
+
+ENV APP_HOME=/usr/src/app
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
