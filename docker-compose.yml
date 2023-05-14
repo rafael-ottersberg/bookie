@@ -23,4 +23,3 @@ services:
 
 volumes:
   static_volume:
->>>>>>> 493884552efb3f4af97159e04bd29f94483f4ac6
