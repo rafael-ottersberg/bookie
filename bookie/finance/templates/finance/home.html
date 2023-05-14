@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <p>Willkommen, ich bin Bookie! Wie kann ich behilflich sein?</p>
+    <a class="btn btn-primary" href="{% url 'finance:addexpense' %}">Ausgabe erfassen</a>
+    <a class="btn btn-primary" href="{% url 'finance:addincome' %}">Einnahme erfassen</a>
+</div>
+{% endblock %}

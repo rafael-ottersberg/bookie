@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <h4>Einnahme erfassen</h4>
+    <hr>
+    <form action="{% url 'finance:addincome' %}" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+        <a class="btn btn-primary" href="{% url 'finance:overview' %}">Zurück</a>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+
+    </form>
+</div>
+{% endblock %}

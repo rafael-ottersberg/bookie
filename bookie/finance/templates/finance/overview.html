@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4>Kategorien</h4>
+        {% if categories %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Saldo</th>
+                        <th>Monatliches Budget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td><a href="{% url 'finance:category-detail' category.id %}">{{ category.name }}</a></td>
+                        <td>{{ category.saldo }} CHF</td>
+                        <td>{{ category.monthly_budget }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Keine Kategorien</p>
+        {% endif %}
+
+        <h4>Konten</h4>
+        {% if accounts %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.name }}</td>
+                        <td>{{ account.saldo }} CHF</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Keine Konten</p>
+        {% endif %}
+        
+        <b>
+            <p>Differenz: {{ difference }} CHF</p>
+        </b>
+        
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h3>Details {{ category.name }}</h3>
+
+    <p>Saldo: {{ category.saldo }} CHF</p>
+    <h4>Ausgaben</h4>
+    {% if expenses %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Bezeichnung</th>
+                    <th>Betrag (CHF)</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.date }}</td>
+                    <td>{{ expense.name }}</td>
+                    <td>{{ expense.amount }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Keine Ausgaben</p>
+    {% endif %}
+    <hr>
+    <h4>Einnahmen</h4>
+    {% if incomes %}
+        <table class="table">
+            <tr>
+                <th>Datum</th>
+                <th>Bezeichnung</th>
+                <th>Betrag (CHF)</th>
+            </tr>
+            {% for income in incomes %}
+                <tr>
+                    <td>{{ income.date }}</td>
+                    <td>{{ income.name }}</td>
+                    <td>{{ income.amount }} </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Keine Einnahmen</p>
+    {% endif %}
+</div>
+{% endblock content %}
+
