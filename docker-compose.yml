@@ -1,12 +1,26 @@
 version: '3.3'
 
 services:
-  web:
+  django:
     build: ./bookie
     command: gunicorn bookie.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./bookie/:/usr/src/app/
-    ports:
-      - 8012:8000
+      - ./db/:/usr/src/app/db
+      - static_volume:/staticfiles
+    expose:
+      - 8000
     env_file:
       - ./.env
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+    ports:
+      - 8012:80
+    depends_on:
+      - django
+
+volumes:
+  static_volume:
+>>>>>>> 493884552efb3f4af97159e04bd29f94483f4ac6
