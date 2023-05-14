@@ -39,6 +39,9 @@ def add_expense(request):
         form = expense_form(request.POST)
         if form.is_valid():
             form.save()
+            for category in Category.objects.all():
+                category.calculate_saldo()
+                category.save()
             return HttpResponseRedirect(reverse("finance:home"))
     else:
         initial = {"date": timezone.now().strftime("%Y-%m-%d")}
@@ -54,6 +57,9 @@ def add_income(request):
         form = income_form(request.POST)
         if form.is_valid():
             form.save()
+            for category in Category.objects.all():
+                category.calculate_saldo()
+                category.save()
             return HttpResponseRedirect(reverse("finance:home"))
     else:
         initial = {"date": timezone.now().strftime("%Y-%m-%d")}

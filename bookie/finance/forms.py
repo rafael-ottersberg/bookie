@@ -2,6 +2,7 @@ from django import forms
 
 from .models import Expense, Income
 
+
 class expense_form(forms.ModelForm):
     class Meta:
         model = Expense
