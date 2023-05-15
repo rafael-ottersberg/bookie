@@ -27,12 +27,17 @@ def add_monthly_budget(modeladmin, request, queryset):
         category.income_set.create(name=months[month_nr], amount=category.monthly_budget, date=date)
         category.save()
 
+@admin.action(description='Calculate saldo')
+def calculate_salto(modeladmin, request, queryset):
+    for category in queryset:
+        category.calculate_saldo()
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'monthly_budget', 'saldo')
     inlines = [ExpenseInline, IncomeInline]
 
-    actions = [add_monthly_budget]
+    actions = [add_monthly_budget, calculate_salto]
 
 
 @admin.register(Expense)
