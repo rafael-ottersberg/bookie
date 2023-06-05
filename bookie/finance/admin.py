@@ -63,4 +63,3 @@ class IncomeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Account)
-

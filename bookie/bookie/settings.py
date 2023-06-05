@@ -36,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS").split(" ")
 
 INSTALLED_APPS = [
     'finance.apps.FinanceConfig',
+    'flightbook.apps.FlightbookConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
