@@ -2,7 +2,7 @@ from django.db import models
 
 
 class FlightBook(models.Model):
-    pilot = models.CharField(max_length=64)
+    pilot = models.CharField(max_length=64, verbose_name="Pilot:In")
     number_of_flights = models.IntegerField(default=0)
 
     def __str__(self):
