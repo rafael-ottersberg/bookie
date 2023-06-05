@@ -23,7 +23,7 @@ def add_monthly_budget(modeladmin, request, queryset):
                   6: 'Juni', 7: 'Juli', 8: 'August', 9: 'September', 10: 'Oktober',
                   11: 'November', 12: 'Dezember'}
         
-        month_nr = 1
+        month_nr = datetime.date.today().month
         date = datetime.date(datetime.date.today().year, month_nr, 1)
         category.income_set.create(name=months[month_nr], amount=category.monthly_budget, date=date)
         category.save()
