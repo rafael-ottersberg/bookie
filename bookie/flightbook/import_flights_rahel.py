@@ -4,7 +4,7 @@ from flightbook.models import Site, Wing, Flight, FlightBook
 
 fb = FlightBook.objects.get(pilot='Roli')
 tony = Wing.objects.create(callsign='Fat Tony', manufacturer='Advance', model='Alpha 6', size='22', color='Grün')
-wonda = Wing.objects.create(callsign='Wonky Wonda', brand='Niviuk', model='Kode P', size='22', color='Türkis')
+wonda = Wing.objects.create(callsign='Wonky Wonda', manufacturer='Niviuk', model='Kode P', size='22', color='Türkis')
 
 
 with open('./flightbook/import/rahel_flights.txt') as f:
