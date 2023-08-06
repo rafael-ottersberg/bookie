@@ -33,6 +33,7 @@ def add_commercial_flight(request):
         if flight_form.is_valid() and commercial_flight_form.is_valid():
             flight = flight_form.save(commit=False)
             flight.duration = 12
+            flight.tandemflight = True
             flight.flightbook = FlightBook.objects.get(pilot='Rafael')
             flight.save()
             commercial_flight = commercial_flight_form.save(commit=False)
