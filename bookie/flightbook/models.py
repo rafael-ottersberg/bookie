@@ -107,7 +107,9 @@ class CommercialFlight(models.Model):
     photo_payment = models.CharField(
         max_length=16,
         choices=PAYMENT_CHOICES,
-        default=None,
+        default=None, 
+        null=True, 
+        blank=True
     )
 
     tip = models.FloatField(default=None, null=True, blank=True)
@@ -120,6 +122,8 @@ class CommercialFlight(models.Model):
         max_length=16,
         choices=TIP_CHOICES,
         default=None,
+        null=True, 
+        blank=True
     )
 
     def __str__(self):
