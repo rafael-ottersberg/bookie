@@ -43,8 +43,8 @@ class CommercialFlightForm(forms.ModelForm):
             'double_airtime',
             'photos_sold',
             'photo_payment',
-            'tip',
             'tip_payment',
+            'tip',
         ]
 
 class SiteForm(forms.ModelForm):

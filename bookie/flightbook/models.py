@@ -99,6 +99,7 @@ class CommercialFlight(models.Model):
     DESK = 'Desk'
     CARD = 'Kreditkarte'
     PAYMENT_CHOICES = (
+        (None, 'Keine Fotos'),
         (CASH, 'Bar'),
         (DESK, 'Desk'),
         (CARD, 'Kreditkarte'),
@@ -106,18 +107,19 @@ class CommercialFlight(models.Model):
     photo_payment = models.CharField(
         max_length=16,
         choices=PAYMENT_CHOICES,
-        default=CARD,
+        default=None,
     )
 
-    tip = models.FloatField(default=0, null=True)
+    tip = models.FloatField(default=None, null=True, blank=True)
     TIP_CHOICES = (
+        (None, 'Kein Trinkgeld'),
         (CASH, 'Bar'),
         (CARD, 'Kreditkarte'),
     )
     tip_payment = models.CharField(
         max_length=16,
         choices=TIP_CHOICES,
-        default=CASH,
+        default=None,
     )
 
     def __str__(self):

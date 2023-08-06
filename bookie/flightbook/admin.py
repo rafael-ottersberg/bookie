@@ -9,8 +9,14 @@ class FlightAdmin(admin.ModelAdmin):
     list_per_page = 100
     ordering = ('-date', '-flightbook')
 
+@admin.register(CommercialFlight)
+class CommercialFlightAdmin(admin.ModelAdmin):
+    list_display = ('flight', 'company', 'trip_time', 'double_airtime', 'photos_sold', 'photo_payment', 'tip', 'tip_payment')
+    list_filter = ('flight__date',)
+    list_per_page = 100
+    ordering = ('-flight__date',)
+    
 admin.site.register(FlightBook)
-admin.site.register(CommercialFlight)
 admin.site.register(Company)
 admin.site.register(Site)
 admin.site.register(Wing)
