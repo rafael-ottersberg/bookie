@@ -1,3 +1,6 @@
+# move script to flightbook folder and run with:
+# python manage.py shell < import_flights_rafael.py
+
 import pandas as pd
 from datetime import datetime
 from flightbook.models import Site, Wing, Flight, FlightBook, CommercialFlight, Company
@@ -22,7 +25,7 @@ for row in df.iterrows():
 
     if not Site.objects.filter(name=row['Landung']).exists():
         print(f"Site {row['Landung']} does not exist")
-        
+
     takeoff = Site.objects.get(name=row['Start'])
     landing = Site.objects.get(name=row['Landung'])
 

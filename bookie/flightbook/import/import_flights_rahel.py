@@ -1,3 +1,6 @@
+# move script to flightbook folder and run with:
+# python manage.py shell < import_flights_rahel.py
+
 import re
 from datetime import datetime
 from flightbook.models import Site, Wing, Flight, FlightBook

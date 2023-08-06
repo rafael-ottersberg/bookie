@@ -28,6 +28,9 @@
               Flugbuch
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'flightbook:flightlist' 'Rafael' %}">Flugbuch Rafael</a></li>
+              <li><a class="dropdown-item" href="{% url 'flightbook:flightlist' 'Roli' %}">Flugbuch Roli</a></li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'flightbook:addflight' %}">Flug erfassen</a></li>
               <li><a class="dropdown-item" href="{% url 'flightbook:addcommercialflight' %}">Kommerziellen Flug erfassen</a></li>
             </ul>

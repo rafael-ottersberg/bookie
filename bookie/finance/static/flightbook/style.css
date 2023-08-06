@@ -1,0 +1,11 @@
+table {
+    font-size: 0.7rem
+}
+
+td.flight-row {
+    padding: 2px
+}
+
+th.flight-row {
+    padding: 2px
+}

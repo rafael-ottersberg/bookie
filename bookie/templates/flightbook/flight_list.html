@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load django_bootstrap5 %} {% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Startplatz</th>
+      <th scope="col">Landeplatz</th>
+      <th scope="col">Schirm</th>
+      <th scope="col">Dauer</th>
+      <th scope="col">Bemerkung</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for flight in flight_list %}
+    <tr>
+      <th class="flight-row">{{ forloop.revcounter }}</th>
+      <td class="flight-row">{{ flight.date|date:'d.m.y' }}</td>
+      <td class="flight-row">{{ flight.takeoff.name }}</td>
+      <td class="flight-row">{{ flight.landing.name }}</td>
+      <td class="flight-row">{{ flight.wing.callsign }}</td>
+      <td class="flight-row">{{ flight.duration|floatformat:0 }}</td>
+      <td class="flight-row">{{ flight.comment }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,3 +1,6 @@
+# move script to flightbook folder and run with:
+# python manage.py shell < import_sites.py
+
 import pandas as pd
 from flightbook.models import Site
 
