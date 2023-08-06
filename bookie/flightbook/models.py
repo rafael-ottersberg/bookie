@@ -55,8 +55,8 @@ class Flight(models.Model):
     takeoff = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='takeoff')
     landing = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='landing')
     date = models.DateField()
-    duration = models.FloatField(default=None, null=True)
-    distance = models.FloatField(default=None, null=True)
+    duration = models.FloatField(default=None, null=True, required=False)
+    distance = models.FloatField(default=None, null=True, required=False)
     wing = models.ForeignKey(Wing, on_delete=models.CASCADE)
 
     tandemflight = models.BooleanField(default=False)

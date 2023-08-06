@@ -28,7 +28,7 @@ def add_flight(request):
 @login_required
 def add_commercial_flight(request):
     if request.method == "POST":
-        flight_form = FlightForm(request.POST)
+        flight_form = FlightFormPart(request.POST)
         commercial_flight_form = CommercialFlightForm(request.POST)
         if flight_form.is_valid() and commercial_flight_form.is_valid():
             flight = flight_form.save(commit=False)
@@ -52,18 +52,7 @@ def add_commercial_flight(request):
             "flight_form": flight_form,
             "commercial_flight_form": commercial_flight_form,
             })
-"""
-class CategoryDetail(LoginRequiredMixin, generic.DetailView):
-    model = Category
-    template_name = "finance/category.html"
 
-    def get_context_data(self, **kwargs):
-        show_last = 10
-        context = super().get_context_data(**kwargs)
-        context["expenses"] = self.object.expense_set.order_by("-date")[:show_last]
-        context["incomes"] = self.object.income_set.order_by("-date")[:show_last]
-        return context
-"""
 
 class FlightList(LoginRequiredMixin, generic.ListView):
     model = Flight
