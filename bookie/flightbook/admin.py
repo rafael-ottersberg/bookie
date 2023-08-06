@@ -5,9 +5,9 @@ from .models import FlightBook, Flight, CommercialFlight, Company, Site, Wing
 
 @admin.register(Flight)
 class FlightAdmin(admin.ModelAdmin):
-    list_display = ('date', 'takeoff', 'landing', 'wing', 'duration', 'distance', 'tandemflight', 'vkpi')
-    list_filter = ('date', 'takeoff', 'landing', 'wing', 'tandemflight', 'vkpi')
-    list_per_page = 30
+    list_display = ('date', 'flightbook', 'takeoff', 'landing', 'wing', 'duration', 'distance', 'tandemflight')
+    list_filter = ('flightbook', 'date', 'takeoff', 'landing', 'wing', 'tandemflight')
+    list_per_page = 200
 
 
 admin.site.register(FlightBook)

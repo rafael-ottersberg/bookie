@@ -4,7 +4,15 @@
 {% block content %}
 <div class="container">
     <p>Willkommen, ich bin Bookie! Wie kann ich behilflich sein?</p>
+    <hr>
+    <h4>Finanzen</h4>
     <a class="btn btn-primary" href="{% url 'finance:addexpense' %}">Ausgabe erfassen</a>
     <a class="btn btn-primary" href="{% url 'finance:addincome' %}">Einnahme erfassen</a>
+    <hr>
+    <h4>Flugbuch</h4>
+    <a class="btn btn-primary" href="{% url 'flightbook:addflight' %}">Flug erfassen</a>
+    <a class="btn btn-primary" href="{% url 'flightbook:addcommercialflight' %}">Kommerziellen Flug erfassen</a>
+
+
 </div>
 {% endblock %}

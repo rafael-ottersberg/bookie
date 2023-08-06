@@ -3,7 +3,7 @@ from django import forms
 from .models import Expense, Income
 
 
-class expense_form(forms.ModelForm):
+class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
         fields = [
@@ -16,7 +16,7 @@ class expense_form(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
         }
 
-class income_form(forms.ModelForm):
+class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
         fields = [

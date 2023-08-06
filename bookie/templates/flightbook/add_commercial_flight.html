@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <h4>Kommerziellen Flug erfassen</h4>
+    <hr>
+    <form action="{% url 'flightbook:addcommercialflight' %}" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form flight_form %}
+    {% bootstrap_form commercial_flight_form %}
+        <a class="btn btn-primary" href="{% url 'finance:home' %}">Zurück</a>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </form>
+</div>
+{% endblock %}

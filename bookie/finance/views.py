@@ -7,7 +7,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import expense_form, income_form
+from .forms import ExpenseForm, IncomeForm
 
 from .models import Category, Account
 
@@ -36,7 +36,7 @@ def overview(request):
 @login_required
 def add_expense(request):
     if request.method == "POST":
-        form = expense_form(request.POST)
+        form = ExpenseForm(request.POST)
         if form.is_valid():
             form.save()
             for category in Category.objects.all():
@@ -47,14 +47,14 @@ def add_expense(request):
         initial = {"date": timezone.now().strftime("%Y-%m-%d")}
         if Category.objects.filter(name="Haushalt").exists():
             initial["category"] = Category.objects.get(name="Haushalt")
-        form = expense_form(initial=initial)
+        form = ExpenseForm(initial=initial)
 
     return render(request, "finance/add_expense.html", {"form": form})
 
 @login_required
 def add_income(request):
     if request.method == "POST":
-        form = income_form(request.POST)
+        form = IncomeForm(request.POST)
         if form.is_valid():
             form.save()
             for category in Category.objects.all():
@@ -63,7 +63,7 @@ def add_income(request):
             return HttpResponseRedirect(reverse("finance:home"))
     else:
         initial = {"date": timezone.now().strftime("%Y-%m-%d")}
-        form = income_form(initial=initial)
+        form = IncomeForm(initial=initial)
 
     return render(request, "finance/add_income.html", {"form": form})
 

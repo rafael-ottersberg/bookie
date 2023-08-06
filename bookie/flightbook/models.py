@@ -19,16 +19,19 @@ class FlightBook(models.Model):
 
 class Site(models.Model):
     name = models.CharField(max_length=64)
-    height = models.FloatField(default=None)
+    altitude = models.FloatField(default=None)
 
     class Meta:
         verbose_name = "Fluggebiet"
         verbose_name_plural = "Fluggebiete"
 
+    def __str__(self):
+        return f"{self.name} ({self.altitude:.0f}m)"
+
 
 class Wing(models.Model):
     callsign = models.CharField(max_length=64)
-    brand = models.CharField(max_length=64)
+    manufacturer = models.CharField(max_length=64)
     model = models.CharField(max_length=64)
     size = models.IntegerField(default=0)
     color = models.CharField(max_length=64)
@@ -36,7 +39,7 @@ class Wing(models.Model):
     number_of_flights = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.callsign} - {self.brand} {self.model} {self.size}"
+        return f"{self.callsign} - {self.manufacturer} {self.model} {self.size}"
     
     def count_flights(self):
         return self.flight_set.count()
@@ -52,12 +55,11 @@ class Flight(models.Model):
     takeoff = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='takeoff')
     landing = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='landing')
     date = models.DateField()
-    duration = models.FloatField(default=0)
-    distance = models.FloatField(default=0)
+    duration = models.FloatField(default=None, null=True)
+    distance = models.FloatField(default=None, null=True)
     wing = models.ForeignKey(Wing, on_delete=models.CASCADE)
 
     tandemflight = models.BooleanField(default=False)
-    vkpi = models.BooleanField(default=False)
 
     comment = models.CharField(max_length=256)
 
@@ -72,17 +74,51 @@ class Flight(models.Model):
 class CommercialFlight(models.Model):
     flight = models.OneToOneField(Flight, on_delete=models.CASCADE, primary_key=True)
 
-    company = models.CharField(max_length=64)
+    company = models.ForeignKey('Company', on_delete=models.CASCADE)
 
     double_airtime = models.BooleanField(default=False)
-    trip_time = models.CharField(max_length=64)
+
+    TRIP_CHOICES = (
+        ('07:15', '07:15'),
+        ('08:15', '08:15'),
+        ('09:30', '09:30'),
+        ('10:40', '10:40'),
+        ('11:50', '11:50'),
+        ('13:00', '13:00'),
+        ('14:15', '14:15'),
+        ('15:30', '15:30'),
+        ('16:45', '16:45'),
+        ('18:00', '18:00'),
+    )
+
+    trip_time = models.CharField(max_length=16, choices=TRIP_CHOICES)
 
     photos_sold = models.BooleanField(default=False)
-    cash_payment = models.BooleanField(default=False)
-    desk_payment = models.BooleanField(default=False)
-    credit_card_payment = models.BooleanField(default=False)
 
-    tip = models.FloatField(default=0)
+    CASH = 'Bar'
+    DESK = 'Desk'
+    CARD = 'Kreditkarte'
+    PAYMENT_CHOICES = (
+        (CASH, 'Bar'),
+        (DESK, 'Desk'),
+        (CARD, 'Kreditkarte'),
+    )
+    photo_payment = models.CharField(
+        max_length=16,
+        choices=PAYMENT_CHOICES,
+        default=CARD,
+    )
+
+    tip = models.FloatField(default=0, null=True)
+    TIP_CHOICES = (
+        (CASH, 'Bar'),
+        (CARD, 'Kreditkarte'),
+    )
+    tip_payment = models.CharField(
+        max_length=16,
+        choices=TIP_CHOICES,
+        default=CASH,
+    )
 
     def __str__(self):
         return f"{self.company} - {self.flight.date}:  + {self.trip_time}"
@@ -96,7 +132,7 @@ class Company(models.Model):
     name = models.CharField(max_length=64)
     
     earnings_per_flight = models.FloatField(default=0)
-    earnings_bonus = models.FloatField(default=0)
+    earnings_da_bonus = models.FloatField(default=0)
     earnings_photos_desk = models.FloatField(default=0)
 
     def __str__(self):
