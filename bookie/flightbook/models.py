@@ -72,7 +72,7 @@ class Flight(models.Model):
 
 
 class CommercialFlight(models.Model):
-    flight = models.OneToOneField(Flight, on_delete=models.CASCADE, primary_key=True)
+    flight = models.OneToOneField(Flight, on_delete=models.CASCADE)
 
     company = models.ForeignKey('Company', on_delete=models.CASCADE)
 
