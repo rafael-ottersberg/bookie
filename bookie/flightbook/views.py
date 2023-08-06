@@ -18,7 +18,7 @@ def add_flight(request):
         form = FlightForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("flightbook:home"))
+            return HttpResponseRedirect(reverse("finance:home"))
     else:
         initial = {"date": timezone.now().strftime("%Y-%m-%d")}
         form = FlightForm(initial=initial)
@@ -33,12 +33,12 @@ def add_commercial_flight(request):
         if flight_form.is_valid() and commercial_flight_form.is_valid():
             flight = flight_form.save(commit=False)
             flight.duration = 12
-            flight.flightbook = FlightBook.objects.get(name='Rafael')
+            flight.flightbook = FlightBook.objects.get(pilot='Rafael')
             flight.save()
             commercial_flight = commercial_flight_form.save(commit=False)
             commercial_flight.flight = flight
             commercial_flight.save()
-            return HttpResponseRedirect(reverse("flightbook:home"))
+            return HttpResponseRedirect(reverse("finance:home"))
     else:
         initial = {"date": timezone.now().strftime("%Y-%m-%d"), 'wing': Wing.objects.get(callsign='WorkingBee')}
         flight_form = FlightFormPart(initial=initial)

@@ -14,6 +14,7 @@ class FlightForm(forms.ModelForm):
             'tandemflight',
             'duration',
             'distance',
+            'comment',
         ]
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
@@ -27,6 +28,7 @@ class FlightFormPart(forms.ModelForm):
             'landing',
             'date',
             'wing',
+            'comment',
         ]
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),

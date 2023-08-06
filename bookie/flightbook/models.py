@@ -55,13 +55,13 @@ class Flight(models.Model):
     takeoff = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='takeoff')
     landing = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='landing')
     date = models.DateField()
-    duration = models.FloatField(default=None, null=True, required=False)
-    distance = models.FloatField(default=None, null=True, required=False)
+    duration = models.FloatField(default=None, null=True, blank=True)
+    distance = models.FloatField(default=None, null=True, blank=True)
     wing = models.ForeignKey(Wing, on_delete=models.CASCADE)
 
     tandemflight = models.BooleanField(default=False)
 
-    comment = models.CharField(max_length=256)
+    comment = models.CharField(max_length=256, null=True, blank=True)
 
     def __str__(self):
         return f"{self.date}: {self.takeoff} - {self.landing}"
