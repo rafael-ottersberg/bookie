@@ -61,7 +61,7 @@ class Flight(models.Model):
 
     tandemflight = models.BooleanField(default=False)
 
-    comment = models.CharField(max_length=256, null=True, blank=True)
+    comment = models.CharField(max_length=256, blank=True, default='')
 
     def __str__(self):
         return f"{self.date}: {self.takeoff} - {self.landing}"
