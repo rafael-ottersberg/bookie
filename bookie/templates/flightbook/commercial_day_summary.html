@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% load django_bootstrap5 %} {% block content %}
+
+<form action="{% url 'flightbook:commercialdaysummary' %}" method="post" class="">
+{% csrf_token %}
+{% bootstrap_form form %}
+<input type="submit" value="Suchen" class="btn btn-primary">
+</form>
+<h3>Zusammenfassung</h3>
+Anzahl Flüge: {{ flight_list|length }}<br>
+Total Bar: {{ total_cash }}<br>
+Total Kreditkarte: {{ total_card }}<br>
+Totale Einnahmen: {{ total_income }}<br>
+<h3>Flüge</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Trip-Zeit</th>
+      <th scope="col">DA</th>
+      <th scope="col">Startplatz</th>
+      <th scope="col">Landeplatz</th>
+      <th scope="col">Photos</th>
+      <th scope="col">Trinkgeld</th>
+      <th scope="col">Betrag</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for commercialflight in flight_list %}
+    <tr>
+      <td class="flight-row">{{ commercialflight.trip_time }}</td>
+      <td class="flight-row">{{ commercialflight.double_airtime }}</td>
+      <td class="flight-row">{{ commercialflight.flight.takeoff.name }}</td>
+      <td class="flight-row">{{ commercialflight.flight.landing.name }}</td>
+      <td class="flight-row">{{ commercialflight.photo_payment }}</td>
+      <td class="flight-row">{{ commercialflight.tip }}</td>
+      <td class="flight-row">{{ commercialflight.tip_payment }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

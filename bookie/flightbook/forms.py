@@ -67,3 +67,8 @@ class WingForm(forms.ModelForm):
             'number_of_flights'
         ]
 
+class CommercialDaySummaryForm(forms.Form):
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+class CommercialMonthSummaryForm(forms.Form):
+    month = forms.DateField(widget=forms.DateInput(attrs={'type': 'month'}))
