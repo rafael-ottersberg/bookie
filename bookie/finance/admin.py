@@ -51,7 +51,6 @@ class ExpenseAdmin(admin.ModelAdmin):
     list_display = ('date', 'name', 'amount')
     search_fields = ['name']
     list_display_links = ('name',)
-    list_per_page = 10
 
 @admin.register(Income)
 class IncomeAdmin(admin.ModelAdmin):
