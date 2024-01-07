@@ -7,7 +7,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import FlightForm, FlightFormPart, CommercialFlightForm, CommercialDaySummaryForm, CommercialMonthSummaryForm
+from .forms import FlightForm, FlightFormPart, CommercialFlightForm, CommercialDaySummaryForm, CommercialMonthSummaryForm, CommercialYearSummaryForm
 
 from .models import Flight, FlightBook, CommercialFlight, Site, Wing, Company
 
@@ -105,4 +105,112 @@ def commercial_day_summary(request):
     return render(
         request, "flightbook/commercial_day_summary.html", 
         {"form": form, "flight_list": flight_list, "total_income": total_income, "total_cash": total_cash, "total_card": total_card})
-    
+
+
+@login_required
+def commercial_month_summary(request):
+    number_of_normal_flights = 0
+    number_of_da_flights = 0
+    number_of_photo_video_desk = 0
+
+    photo_card = 0
+    photo_cash = 0
+
+    tip_card = 0
+    tip_cash = 0
+
+
+    if request.method == "POST":
+        form = CommercialMonthSummaryForm(request.POST)
+        if form.is_valid():
+            date = form.cleaned_data['date']
+            print(date)
+            flight_list = CommercialFlight.objects.filter(flight__date__month=date.month, flight__date__year=date.year)
+
+            for f in flight_list:
+                if f.double_airtime:
+                    number_of_da_flights += 1
+                else:
+                    number_of_normal_flights += 1
+                if f.photo_payment == CommercialFlight.DESK:
+                    number_of_photo_video_desk += 1
+                if f.tip_payment == CommercialFlight.CASH:
+                    tip_cash += float(f.tip)
+                if f.tip_payment == CommercialFlight.CARD:
+                    tip_card += float(f.tip)
+                if f.photo_payment == CommercialFlight.CASH:
+                    photo_cash += 40
+                if f.photo_payment == CommercialFlight.CARD:
+                    photo_card += 40
+
+        
+    else:
+        initial = {"date": timezone.now().strftime("%Y-%m-%d")}
+        form = CommercialMonthSummaryForm(initial=initial)
+
+    return render(
+    request, "flightbook/commercial_month_summary.html", 
+    {
+        "form": form, "number_of_normal_flights": number_of_normal_flights, 
+        "number_of_da_flights": number_of_da_flights, "number_of_photo_video_desk": number_of_photo_video_desk, 
+        "photo_card": photo_card, "photo_cash": photo_cash, "tip_card": tip_card, "tip_cash": tip_cash
+    })
+
+
+@login_required
+def commercial_year_summary(request):
+    number_of_normal_flights = 0
+    number_of_da_flights = 0
+    number_of_photo_video_desk = 0
+
+    number_of_flights_chalet = 0
+    number_of_flights_vkpi = 0
+
+    photo_card = 0
+    photo_cash = 0
+
+    tip_card = 0
+    tip_cash = 0
+
+
+    if request.method == "POST":
+        form = CommercialYearSummaryForm(request.POST)
+        if form.is_valid():
+            date = form.cleaned_data['date']
+            flight_list = CommercialFlight.objects.filter(flight__date__year=date.year)
+
+            for f in flight_list:
+                if f.double_airtime:
+                    number_of_da_flights += 1
+                else:
+                    number_of_normal_flights += 1
+
+                if f.flight.takeoff.name == 'Chalet':
+                    number_of_flights_chalet += 1
+                else:
+                    number_of_flights_vkpi += 1
+                
+                if f.photo_payment == CommercialFlight.DESK:
+                    number_of_photo_video_desk += 1
+                if f.tip_payment == CommercialFlight.CASH:
+                    tip_cash += float(f.tip)
+                if f.tip_payment == CommercialFlight.CARD:
+                    tip_card += float(f.tip)
+                if f.photo_payment == CommercialFlight.CASH:
+                    photo_cash += 40
+                if f.photo_payment == CommercialFlight.CARD:
+                    photo_card += 40
+
+        
+    else:
+        initial = {"date": timezone.now().strftime("%Y-%m-%d")}
+        form = CommercialMonthSummaryForm(initial=initial)
+
+    return render(
+    request, "flightbook/commercial_year_summary.html", 
+    {
+        "form": form, "number_of_normal_flights": number_of_normal_flights,
+        "flight_chalet": number_of_flights_chalet, "flight_vkpi": number_of_flights_vkpi,
+        "number_of_da_flights": number_of_da_flights, "number_of_photo_video_desk": number_of_photo_video_desk, 
+        "photo_card": photo_card, "photo_cash": photo_cash, "tip_card": tip_card, "tip_cash": tip_cash
+    })

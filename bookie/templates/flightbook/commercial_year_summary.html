@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load django_bootstrap5 %} {% block content %}
+
+<form action="{% url 'flightbook:commercialyearsummary' %}" method="post" class="">
+{% csrf_token %}
+{% bootstrap_form form %}
+<input type="submit" value="Suchen" class="btn btn-primary">
+</form>
+<h3>Zusammenfassung</h3>
+Anzahl normale Flüge: {{ number_of_normal_flights }}<br>
+Anzahl DA Flüge: {{ number_of_da_flights }}<br>
+Anzahl Photo Video Desk: {{ number_of_photo_video_desk }}<br>
+Foto Bar: {{ photo_cash }}<br>
+Foto Kreditkarte: {{ photo_card }}<br>
+Trinkgeld Bar: {{ tip_cash }}<br>
+Trinkgeld Kreditkarte: {{ tip_card }}<br>
+
+<hline/>
+
+<h3>Startplätze</h3><br>
+
+Chalet: {{ flight_chalet }}<br>
+VKPI: {{ flight_vkpi }}<br>
+
+{% endblock %}

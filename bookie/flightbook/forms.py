@@ -71,4 +71,7 @@ class CommercialDaySummaryForm(forms.Form):
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
 class CommercialMonthSummaryForm(forms.Form):
-    month = forms.DateField(widget=forms.DateInput(attrs={'type': 'month'}))
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+class CommercialYearSummaryForm(forms.Form):
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
